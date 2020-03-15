@@ -1,19 +1,17 @@
-﻿using System;
+﻿using Domain.Business;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using Domain.Business;
 using Data.DbModels;
 using System.Linq;
 
-namespace Data.Repositorio
+namespace Data.DbModels.Repositories
 {
-    class ClienteRepository : IClienteRepository
+    public class ClienteRepository : IClienteRepository
     {
-
-
-        #region Field
+        
+        #region Fiels
         private readonly DB_Context db;
-        #endregion
 
         public ClienteRepository()
         {
@@ -34,22 +32,21 @@ namespace Data.Repositorio
                 return false;
                 throw;
             }
-
         }
 
-        public bool Exist(int id)
+        public bool Exist(string valor)
         {
             try
             {
-                var data = db.TCliente.Find(id);
-                return data != null ? true : false;
+                var data = db.TBase.Any(x => x.Nombre == valor);
+                return data;
+                
             }
             catch (Exception)
             {
                 return false;
                 throw;
             }
-
         }
 
         public IEnumerable<Cliente> GetAll()
@@ -58,6 +55,7 @@ namespace Data.Repositorio
             {
                 var data = db.TCliente.Select(x => new Cliente()
                 {
+                    IdCliente = x.IdCliente,
                     Nombre = x.Nombre,
                     Apellido = x.Apellido,
                     Direccion = x.Direccion,
@@ -85,24 +83,24 @@ namespace Data.Repositorio
 
                 throw;
             }
-
         }
 
-        public bool Save(Cliente c)
+        public bool save(Cliente c)
         {
             try
             {
                 var dbtable = ConvertToDBTable(c);
                 db.TCliente.Add(dbtable);
                 db.SaveChanges();
+
+                int i = dbtable.IdCliente;
                 return true;
             }
-            catch (Exception)
+            catch (Exception )
             {
                 return false;
                 throw;
             }
-
         }
 
         public bool Update(Cliente c)
@@ -127,9 +125,8 @@ namespace Data.Repositorio
 
                 throw;
             }
-
         }
-
+        #endregion Other Methos
 
         public TCliente ConvertToDBTable(Cliente c)
         {
@@ -137,27 +134,20 @@ namespace Data.Repositorio
             {
                 Nombre = c.Nombre,
                 Apellido = c.Apellido,
-                Direccion = c.Direccion,
                 NumeroTelefono = c.NumeroTelefono,
+                Direccion = c.Direccion,
             };
         }
-
-
         public Cliente ConvertToDBDDomain(TCliente c)
         {
             return new Cliente
             {
                 Nombre = c.Nombre,
                 Apellido = c.Apellido,
-                Direccion = c.Direccion,
                 NumeroTelefono = c.NumeroTelefono,
+                Direccion = c.Direccion,
             };
         }
-
-
-
-
-
 
     }
 }

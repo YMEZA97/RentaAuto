@@ -14,6 +14,7 @@ namespace Services
             var list = new List<IClassType>();
             list.AddRange(DiRegisterData.GetDataList());
             list.Add(new ClassType<IBaseServices, BaseServices>());
+            list.Add(new ClassType<IClienteServices, ClienteServices>());
             return list;
         }
     }

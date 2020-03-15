@@ -1,13 +1,12 @@
-﻿using System;
+﻿using Domain.Business;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using Domain.Business;
 
-namespace Data.DbModels.Repositories
+namespace Services.Business
 {
-   public interface IClienteRepository
+    public interface IClienteServices
     {
-        
         public bool save(Cliente c);
 
         public Cliente GetbyId(int id);
@@ -19,8 +18,6 @@ namespace Data.DbModels.Repositories
         public IEnumerable<Cliente> GetAll();
 
         public bool Exist(string valor);
-        
-
 
     }
 }
