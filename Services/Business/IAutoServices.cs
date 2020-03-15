@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Domain.Business;
 
-namespace Data.Repositorio
+namespace Services.Business
 {
-  public  interface IAutoRepository
+   public interface IAutoServices
     {
         public bool Save(Auto b);
         public Auto GetById(int id);
@@ -13,5 +13,6 @@ namespace Data.Repositorio
         public bool Update(Auto b);
         public IEnumerable<Auto> GetAll();
         public bool Exist(string valor);
+        
     }
 }
