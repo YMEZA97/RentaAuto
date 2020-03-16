@@ -38,11 +38,11 @@ namespace Data.Repositorio
             }
         }
 
-        public bool Exist(int id)
+        public bool Exist(string valor)
         {
             try
             {
-                var data = db.TAuto.Find(id);
+                var data = db.TAuto.Find(valor);
                 return data != null ? true : false;
 
             }
